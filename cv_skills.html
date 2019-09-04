@@ -1,0 +1,174 @@
+<div class="timeline noline">
+	<h1>Technical skills</h1>
+	* As of mid-2019
+	<div class="chart-wrapper" style="width: 80%;  text-align:center; margin: auto;">
+		<canvas id="skillChart"></canvas>
+	</div>
+	<br>
+	<div id="skillTable"></div>
+	<script>
+		var skill_data = [
+			['R', 					5, 4, 4, 7, 3],
+			['Data Mining',			5, 3, 2, 7, 4],
+			['SQL', 				4, 7, 2, 3, 2],
+			['Python',				4, 2, 1, 3, 4],
+			['git',					4, 5, 4, 2, 1],
+			['Machine Learning', 	4, 1, 2, 4, 4],
+			['Linux',				3, 1, 2, 2, 4],
+			['HTML CSS JavaScript',	3, 4, 2, null, null],
+			['AI', 					2, null, null, 2, 2],
+			['NoSQL', 				2, null, null, 1, 1],
+			['Kafka', 				2, null, null, 1, 2],
+			['Docker Kubernetess', 	2, 3, 1, 1, 1],
+			['Data engineering tools', 	1, null, null, 1, 2],
+			['CI/CD', 				1, 2, 0, null, null],
+			['AWS',					1, null, null, 1, 1]
+		]
+		var myTableDiv = document.getElementById("skillTable");
+        var tbl  = document.createElement('table');
+		tbl.style = 'width:100%; text-align:center;';
+		
+		var tr = tbl.insertRow();
+		
+		var th = document.createElement('th');
+		th.innerHTML = "Name";
+		th.width = "30%";
+		tr.appendChild(th)
+		
+		var th = document.createElement('th');
+		th.innerHTML = "Level";
+		th.width = "30%";
+		tr.appendChild(th)
+		
+		var th = document.createElement('th');
+		th.innerHTML = "Professional experience";
+		th.colSpan = "2";
+		th.width = "20%";
+		tr.appendChild(th)
+		
+		var th = document.createElement('th');
+		th.innerHTML = "Non-professional experience";
+		th.colSpan = 2;
+		th.width = "20%";
+		tr.appendChild(th)
+		
+		
+		var tr = tbl.insertRow();
+		
+		tr.appendChild(document.createElement('th'));
+		tr.appendChild(document.createElement('th'));
+		
+		var th = document.createElement('th');
+		th.innerHTML = "Time";
+		tr.appendChild(th);
+		
+		var th = document.createElement('th');
+		th.innerHTML = "Intensity";
+		tr.appendChild(th);
+		
+		var th = document.createElement('th');
+		th.innerHTML = "Time";
+		tr.appendChild(th);
+		
+		var th = document.createElement('th');
+		th.innerHTML = "Intensity";
+		tr.appendChild(th);
+
+		for (var i = 0; i < skill_data.length; i++) {
+			var tr = tbl.insertRow();
+			for (var j = 0; j < skill_data[0].length; j++) {
+				if (j == 0 || j == 2 || j == 4) {
+					var td = tr.insertCell();
+					if (skill_data[i][j] != null) {
+						td.appendChild(document.createTextNode(skill_data[i][j]));
+					}
+				} else if (j == 1) {
+					var td = tr.insertCell();
+					var stars = "";
+					for (var k = 0; k < 5; k++) {
+						if (k < skill_data[i][j]) {
+							stars = stars + "<i class=\"fas fa-star\"></i>";
+						} else {
+							stars = stars + "<i class=\"far fa-star\"></i>";
+						}
+					}
+					td.innerHTML = stars;
+				} else {
+					var td = tr.insertCell();
+					var battery = ""
+					var intensity = skill_data[i][j];
+					if (intensity == null) {
+						battery = null;
+					} else if (intensity == 0) {
+						battery = "<i class=\"fas fa-battery-empty\"></i>"
+					} else if (intensity == 1) {
+						battery = "<i class=\"fas fa-battery-quarter\"></i>"
+					} else if (intensity == 2) {
+						battery = "<i class=\"fas fa-battery-half\"></i>"
+					} else if (intensity == 3) {
+						battery = "<i class=\"fas fa-battery-three-quarters\"></i>"
+					} else if (intensity == 4) {
+						battery = "<i class=\"fas fa-battery-full\"></i>"
+					}
+					td.innerHTML = battery;
+				}
+			}
+		}
+		myTableDiv.appendChild(tbl);
+		
+		
+		var radar_labels = [];
+		var radar_vals1 = [];
+		var radar_vals2 = [];
+		for (i = 0; i < skill_data.length; i++) {
+			radar_labels.push(skill_data[i][0])
+			radar_vals1.push(skill_data[i][2] * skill_data[i][3] / 5);
+			radar_vals2.push(skill_data[i][4] * skill_data[i][5] / 5);
+		}
+		
+		var ctx = document.getElementById("skillChart");
+		var config = {
+			type: "radar",
+			data: {
+				labels: radar_labels,
+				datasets: [
+					{
+						label: "Professional experience",
+						data: radar_vals1,
+						fill: true,
+						backgroundColor: "rgba(255, 99, 132, 0.2)",
+						borderColor: "rgb(255, 99, 132)",
+						pointBackgroundColor: "rgb(255, 99, 132)",
+						pointBorderColor: "#fff",
+						pointHoverBackgroundColor: "#fff",
+						pointHoverBorderColor: "rgb(255, 99, 132)"
+					}, 
+					{
+						label: "Non-professional experience",
+						data: radar_vals2, 
+						fill:true,
+						backgroundColor: "rgba(54, 162, 235, 0.2)",
+						borderColor: "rgb(54, 162, 235)",
+						pointBackgroundColor: "rgb(54, 162, 235)",
+						pointBorderColor: "#fff",
+						pointHoverBackgroundColor: "#fff",
+						pointHoverBorderColor: "rgb(54, 162, 235)"
+					}
+				]
+			},
+			options: {
+				elements: {
+					line: {
+						tension: 0,
+						borderWidth: 3
+					}
+				},
+				title: {
+					display: true,
+					text: 'Summed years of experience (both professional and non-professional) weighted by "intensity"'
+				}
+			}
+		};
+		new Chart(ctx, config);
+	</script>
+</div>

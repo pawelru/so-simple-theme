@@ -1,0 +1,108 @@
+<style>
+	.noline:before {
+		content:none;
+	}
+</style>
+<div class="timeline noline">
+	<h1>Career summary</h1>
+	<canvas id="myTimeline" width="400" height="150"></canvas>
+	<script>
+		var config = {
+			type: 'timeline',
+			data: {
+				labels: ["Bachelor", "Masters", "Post-graduate", "PwC", "Novartis", "Deloitte", "Roche"],
+				datasets: [{
+					backgroundColor: [
+						'#05668d',
+						'#028090',
+						'#00a896',
+						'#f7b267',
+						'#f79d65',
+						'#f4845f',
+						'#f27059'
+					],
+					data: [
+						[new Date(2010, 9, 1), new Date(2013, 6, 1)],
+						[new Date(2013, 9, 1), new Date(2015, 6, 1)],
+						[new Date(2018, 9, 1), new Date(2019, 6, 1)],
+						[new Date(2012, 6, 1), new Date(2012, 7, 1)],
+						[new Date(2013, 5, 1), new Date(2014, 1, 1)],
+						[new Date(2014, 6, 1), new Date(2019, 0, 1)],
+						[new Date(2019, 1, 1), new Date(Date.now())],
+					]
+				}]
+			},
+			options: {
+				scales: {
+					xAxes: [{
+						stacked: true,
+					}],
+					yAxes: [{
+						stacked: true,
+					}]
+				},
+				legend: {
+					display: false
+				},
+				tooltips: {
+					enabled: false
+				},
+				annotation: {
+					annotations: [{
+						type: 'line',
+						mode: 'horizontal',
+						scaleID: 'y-axis-0',
+						value: 'PwC',
+						drawTime: "afterDatasetsDraw",
+						borderColor: 'tomato',
+						borderWidth: 1,
+						borderDash: [2, 2],
+						label: {
+							enabled: false,
+							position: "left",
+							content: [["Education"], ["Proffesional Experience"]]
+						}
+					}],
+					drawTime: "afterDraw" // (default)
+				}
+			}
+		};
+
+		var ctx = document.getElementById("myTimeline").getContext("2d");
+		new Chart(ctx, config);
+	</script>
+</div>
+<div class="timeline noline">
+	<h1>Key responsibilities summary</h1>
+	<div class="chart-wrapper" style="width: 80%;  text-align:center; margin: auto;">
+		<canvas id="resp" style="width: 80%"></canvas>
+	</div>
+	<script>
+		new Chart(document.getElementById("resp"), {
+			type: 'doughnut',
+			data: {
+				datasets: [{
+					backgroundColor: [
+						"#26547c", 
+						"#ef476f", 
+						"#ffd166", 
+						"#06d6a0", 
+						"#35a7ff", 
+						"#9cec5b", 
+						"#ea3546"
+					],
+					data: [40, 5, 10, 10, 20, 5, 10]
+				}],
+				labels: [
+					'Software development', 
+					'Testing', 
+					'Data analysis', 
+					'Team management', 
+					'Business analysis', 
+					'Client support', 
+					'Trainings'
+				]
+			}
+		});
+	</script>
+</div>

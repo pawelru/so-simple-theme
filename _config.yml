@@ -16,12 +16,12 @@
 theme: jekyll-theme-so-simple
 # remote_theme: mmistakes/so-simple-theme
 locale: en-US
-title: "My Awesome Site"
-description: "It really is the best."
+title: "Paweł Rucki"
+description: "Data science developer"
 baseurl: # the subpath of your site, e.g. "/blog"
 url: # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
-logo: # path of site logo, e.g. "/images/logo.png"
-date_format: "%B %-d, %Y"
+logo: "/images/200_photo.jpg"
+date_format: "%Y-%m-%d"
 read_time: # reading time estimates, e.g. true
 words_per_minute: # 200
 mathjax: # MathJax equations, e.g. true
@@ -30,11 +30,6 @@ google_fonts:
     weights: "400,400i,700,700i"
   - name: "Lora"
     weights: "400,400i,700,700i"
-google_analytics: # Google Analytics id, e.g. "UA-NNNNNNNN-N"
-disqus:
-  shortname: # Disqus shortname, e.g. "my_disqus_shortname"
-twitter:
-  username: # site's Twitter username, e.g. "mmistakes"
 
 # Liquid
 liquid:
@@ -98,6 +93,18 @@ author:
 
 # Footer Links
 footer_links:
-  - title: Feed
-    url: atom.xml
-    icon: fas fa-rss-square
+  - title: LinkedIn
+    url: https://www.linkedin.com/in/pawe%C5%82-rucki-01727a109/
+    icon: fab fa-linkedin-in
+  - title: GitHub
+    url: https://github.com/pawelru
+    icon: fab fa-github-square
+  - title: Mail
+    url: mailto:pawelrucki@gmail.com
+    icon: fas fa-envelope
+
+head_scripts:
+  - /assets/js/moment.js
+  - /assets/js/chart.js
+  - /assets/js/timeline2.js
+  - /assets/js/annotation.js
